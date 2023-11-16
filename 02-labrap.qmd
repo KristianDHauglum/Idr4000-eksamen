@@ -1,0 +1,27 @@
+# Labrapport
+
+
+```{r}
+# Opprett data frame med gitt data
+data <- data.frame(
+  Time = c("W0", "W2"),
+  MHC_I_mean = c(18.25, 20.61),
+  MHC_I_std = c(1.07, 4.85),
+  MHC_I_cv = c(5.8, 23.52),
+  MHC_IIa_mean = c(16.58, 17.61),
+  MHC_IIa_std = c(1.95, 0.69),
+  MHC_IIa_cv = c(11.77, 3.93),
+  MHC_IIx_mean = c(17.85, 22.21),
+  MHC_IIx_std = c(0.45, 0.72),
+  MHC_IIx_cv = c(2.51, 3.26)
+)
+
+# Vis data frame
+print(data)
+
+# Hvis du vil vise dataene i en tabell
+library(knitr)
+kable(data)
+
+```
+

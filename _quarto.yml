@@ -1,0 +1,27 @@
+project:
+  type: book
+
+book:
+  title: "Mappeeksamen IDR4000"
+  author: "Kandidatnummer"
+  date: "17.11.2023"
+  chapters:
+    - index.qmd
+    - 01-reliabilitet.qmd
+    - 02-labrap.qmd
+    - 03-vitenfilo.qmd
+    - 04-studdes.qmd
+    - 05-repmeasures.qmd
+    - summary.qmd
+    - references.qmd
+
+bibliography: resources/references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+
+
