@@ -1,4 +1,5 @@
 # Analyse av repeterte målinger
+
 ```{r}
 #| label: "laste opp pakker og data"
 #| warning: false
@@ -17,15 +18,14 @@ data("strengthvolume")
 data("dxadata")
 
 ```
- 
 
 ## Introduksjon
 
-Styrketrening påvirker kroppen og gir adaptasjoner som for eksempel økt muskelstyrke og økt muskelmasse som kan påvirke både prestasjon- og helseparametere. Det er vanlig å skille mellom morfologiske og nevrologiske adaptasjoner til styrketrening (Folland & Williams, 2007). Økning i muskelens tverrsnittsareal er et eksempel på en morfologisk adaptasjon som er et resultat av at myofibrillene øker i størrelse og antall. Andre morforlogiske adaptasjoner er endring i fibertypesammensetning og hyperplasi (Folland & Williams, 2007; Raastad et al., 2010). Nevrologiske adaptasjoner innebærer blandt annet bedre rekruttering av muskulatur, bedre teknikk og koordinasjon (Folland & Williams, 2007).
+Styrketrening påvirker kroppen og gir adaptasjoner som for eksempel økt muskelstyrke og økt muskelmasse som kan påvirke både prestasjon- og helseparametere. Det er vanlig å skille mellom morfologiske og nevrologiske adaptasjoner til styrketrening [@folland2007]. Økning i muskelens tverrsnittsareal er et eksempel på en morfologisk adaptasjon som er et resultat av at myofibrillene øker i størrelse og antall. Andre morforlogiske adaptasjoner er endring i fibertypesammensetning og hyperplasi [@folland2007; @raastad2010]. Nevrologiske adaptasjoner innebærer blandt annet bedre rekruttering av muskulatur, bedre teknikk og koordinasjon [@folland2007].
 
-Det er flere faktorer som påvirker adaptasjoner til styrketrening. Hvor stor fremgang en kan forvente påvirkes blandt annet av treningserfaring. Personer med lav treningserfaring kan forvente en større prosentvis fremgang per økt i både styrke og muskelmasse enn godt trente individer (Hughes, Ellefsen & Baar, 2018). Et utrent individ kan oppleve en økning på mellom ukentlig økning i maksimal muskelstyrke på 1 % (McDonagh & Davies, 1984) og en økning på mellom 0,1 og 0,5% i muskelmasse per økt (Wernbom et al., 2007). En annen faktor som påvirker adaptasjoner til trening er treningsvolum. Treningsvolumet er en indikator på hvor mye arbeid en gitt muskel utfører under en treningsøkt. Ofte regner man treningsvolumet som produktet av antall serier * antall repetisjoner * treningsmotstand (Raastad et al., 2010). Mye forskning tyder på at et høyere volum gir bedre adaptasjoner til styrketrening (Krieger et al. 2009). Allikevel fant Cannon & Marino 2010 og Mitchell et al., 2012 ut at lavt treningsvolum ga samme adaptasjoner som moderat treningsvolum. Andre faktorer som påvirker styrketreningsadaptasjoner er søvn, kosthold, alder og kjønn (Hughes, Ellefsen & Baar, 2018).
+Det er flere faktorer som påvirker adaptasjoner til styrketrening. Hvor stor fremgang en kan forvente påvirkes blandt annet av treningserfaring. Personer med lav treningserfaring kan forvente en større prosentvis fremgang per økt i både styrke og muskelmasse enn godt trente individer [@hughes2018]. Et utrent individ kan oppleve en økning på mellom ukentlig økning i maksimal muskelstyrke på 1 % @mcdonagh1984 og en økning på mellom 0,1 og 0,5% i muskelmasse per økt [@wernbom2007]. En annen faktor som påvirker adaptasjoner til trening er treningsvolum. Treningsvolumet er en indikator på hvor mye arbeid en gitt muskel utfører under en treningsøkt. Ofte regner man treningsvolumet som produktet av antall serier \* antall repetisjoner \* treningsmotstand [@raastad2010]. Mye forskning tyder på at et høyere volum gir bedre adaptasjoner til styrketrening [@krieger2009]. Allikevel fant @cannon2010 og @mitchell2012 ut at lavt treningsvolum ga samme adaptasjoner som moderat treningsvolum. Andre faktorer som påvirker styrketreningsadaptasjoner er søvn, kosthold, alder og kjønn [@hughes2018].
 
-Mangel på tid er ofte en faktor som hindrer folk i å trene (Choi et al., 2017). For mennesker med et høyt tempo i hverdagen kan det derfor være av interesse å vite hvor lite trening en kan gjøre og fortsatt få de positive effektene trening bringer. Denne oppgaven har til formål og undersøke hvordan lavt treningsvolum og moderat treningsvolum påvirker 1RM kneekstensjon og muskelmasse.
+Mangel på tid er ofte en faktor som hindrer folk i å trene [@choi2017]. For mennesker med et høyt tempo i hverdagen kan det derfor være av interesse å vite hvor lite trening en kan gjøre og fortsatt få de positive effektene trening bringer. Denne oppgaven har til formål og undersøke hvordan lavt treningsvolum og moderat treningsvolum påvirker 1RM kneekstensjon og muskelmasse.
 
 ## Metode
 
@@ -54,7 +54,6 @@ dxadata %>%
 
 ```
 
-
 ### Intervensjon
 
 Intervensjonen gikk over tolv uker. Deltakerene gjennomførte et fullkropp-styrkeprogram med en frekvens på 2-3 økter i uken. Det ble gjennomført en standardisert oppvarmingsprotokoll før hver styrkeøkt bestående av fem minutter på ergometersykkel (RPE 12-14), etterfulgt av ti repetisjoner av følgende kroppsvektøvelser: push-ups med individuellt justert vinkel, sit-ups, ryggeksensjon og knebøy. I tillegg ble det gjennomført ett sett med ti repetisjoner på 50% av 1RM for hver av øvelsene i styrketreningsprogrammet. I styrketreningsprogrammet ble øvelsene på underekstremitet gjennomført unilateralt slik at hver deltaker kunne ha lavt treningsvolum på ett bein og moderat på det andre beinet. Hvilket bein som ble tildelt lavt treningsvolum og hvilket som ble tildelt moderat hos hver deltaker var tilfeldig. Øvelsene i styrkeprogrammet ble gjennomført i følgende rekkefølge: unilateral benpress, lår curl og kneekstensjon. Det beinet som kun skulle ha ett sett ble trent mellom sett to og tre på beinet som gjennomførte tre sett. Etter beinøvelsene ble det gjennomført to sett bilateral benkpress, nedtrekk og enten skulderpress (en av øvelsene annenhver økt). Deltakerne hadde 90-180 sek pause mellom hvert sett. Den relative motstanden økte underveis i intervensjonen, det ble brukt 10RM de første to ukene, etterfulgt av 8RM i tre uker før sju uker på 7RM. Av hensyn til deltakerenes hverdag ble noen av treningsøktene ble gjennomført uten tilsyn. I gjennomsnitt ble 91% av øktene gjennomført med tilsyn (SD=10, range: 67-100%). Deltakerene måtte føre detaljerte logger som jevnlig ble sjekket av forskningsgruppa for å forsikre progresjon og at protokollen ble fulgt. Etter den niende treningsøkten hadde hver uke med tre treningsøkter en økt med redusert motstand, tilsvarende 90% av forgje økt med samme antall repetisjoner. Økter med maksimal innsats var adskillt med 48 timer, mens økter med submaksimal innsats var adskillt fra andre økter med minst 24 timer. For å sikre god restitusjon fikk deltakerene en standardisert drikke som inneholdt 0.15 g protein, 1.2 g karbohydrat og 0.5 g fett per kilo kroppsvekt etter hver økt.
@@ -69,9 +68,10 @@ Andel fettfri masse ble målt før og etter intervensjonen ved bruk av dual-ener
 
 ### Statistisk analyse
 
-Dataene ble behandlet i R-studio. Det ble benyttet paired sample t-test til å måle effekten lavt og moderat treningsvolum har på fettfri masse og 1RM benpress. Avhengig variabel i t-testen er differanse mellom gruppene. For fettfri masse er den oppgitt i gram, mens den er oppgitt som kilo for 1 RM benpress. Signifikansnivået ble satt til p > 0.05. Dataene i oppgaven er pressentert som gjennomsnitt +- standardavvik hvis ikke annet er oppgitt.
+Dataene ble behandlet i R-studio. Det ble benyttet paired sample t-test til å måle effekten lavt og moderat treningsvolum har på fettfri masse og 1RM benpress. Avhengig variabel i t-testen er differanse mellom gruppene. For fettfri masse er den oppgitt i gram, mens den er oppgitt som kilo for 1 RM benpress. Signifikansnivået ble satt til p \> 0.05. Dataene i oppgaven er pressentert som gjennomsnitt +- standardavvik hvis ikke annet er oppgitt.
 
 ## Resultat
+
 ```{r}
 #| label: "komprimere datasett"
 #| warning: false
@@ -107,7 +107,6 @@ benpress <- strengthvolume %>%
   print()
 
 ```
-
 
 ```{r}
 #| warning: false
@@ -162,7 +161,6 @@ m1results <- paste0(m1est,
                     )
 ```
 
-         
 ```{r}
 #| warning: false
 #| message: false
@@ -219,9 +217,7 @@ m2results <- paste0(m2est,
                     )
 ```
 
-
-Beinet som trente tre sett hadde en større økning i fettfri masse enn beinet som trente ett sett. Forskjellen mellom gruppene oppgitt i gram var `r m1results`. @fig-1 viser hvor mange gram deltakerne økte i fettfri masse fra pre- til posttest. I 1RM benpress var det en gjennomsnittlig differanse oppgitt i kilo på r m2results. @fig-2 viser hvor mange kilo deltakerne økte i 1RM benpress fra pre- til posttest.
-
+Beinet som trente tre sett hadde en større økning i fettfri masse enn beinet som trente ett sett. Forskjellen mellom gruppene oppgitt i gram var `r m1results`. @fig-1 viser hvor mange gram deltakerne økte i fettfri masse fra pre- til posttest. I 1RM benpress var det en gjennomsnittlig differanse oppgitt i kilo på `r m2results`. @fig-2 viser hvor mange kilo deltakerne økte i 1RM benpress fra pre- til posttest.
 
 ```{r}
 #| label: "fig-1"
@@ -275,14 +271,8 @@ strengthvolume %>%
 
 ```
 
-  
-
-
-
-
 ## Diskusjon
 
-Resultatene viser at det var en signifikant forskjell i økning i fettfri masse og 1 RM benpress mellom gruppen som gjennomførte tre sett og ett sett. At gruppen som trente tre sett hadde større fremgang en gruppen som kun trente ett sett stemmer overens med antakelsen om at det er et dose-responsforhold mellom styrketreningsvolum og treningsadaptasjoner (Schoenfeld et al., 2017).
+Resultatene viser at det var en signifikant forskjell i økning i fettfri masse og 1 RM benpress mellom gruppen som gjennomførte tre sett og ett sett. At gruppen som trente tre sett hadde større fremgang en gruppen som kun trente ett sett stemmer overens med antakelsen om at det er et dose-responsforhold mellom styrketreningsvolum og treningsadaptasjoner [@schoenfeld2017].
 
-Det er viktig å påpeke at selv om deltakerne hadde størst fremgang i det beinet som trente tre sett så hadde deltakerne stor fremgang i både styrke og fettfri masse i begge ben. Styrketreningsprotokollen hadde to øvelser som teller 100% volum på forside lår med en frekvens på 2-3 økter per uke. Det vil si at det ukentlige antall sett var på 4-6 sett for det beinet som kun trente ett sett per øvelse. Androulakis-Korakakis et al. 2020 fant ut at kun ett enkelt sett med 6-12 repetisjoner med stor innsats 2-3 ganger i uken ga suboptimale, men signifikante økninger i 1RM hos godt styrketrente individer. Det kan altså tyde på at et lavt treningsvolum kan gi gode styrketreningsadaptasjoner, men at et moderat volum gir bedre adaptasjoner. Denne informasjonen kan være av nytte for personer som har lite tid til styrketrening i hverdagen, men allikevel ønsker fordelene en får av styrketrening.
-
+Det er viktig å påpeke at selv om deltakerne hadde størst fremgang i det beinet som trente tre sett så hadde deltakerne stor fremgang i både styrke og fettfri masse i begge ben. Styrketreningsprotokollen hadde to øvelser som teller 100% volum på forside lår med en frekvens på 2-3 økter per uke. Det vil si at det ukentlige antall sett var på 4-6 sett for det beinet som kun trente ett sett per øvelse. @androulakis-korakakis2020 fant ut at kun ett enkelt sett med 6-12 repetisjoner med stor innsats 2-3 ganger i uken ga suboptimale, men signifikante økninger i 1RM hos godt styrketrente individer. Det kan altså tyde på at et lavt treningsvolum kan gi gode styrketreningsadaptasjoner, men at et moderat volum gir bedre adaptasjoner. Denne informasjonen kan være av nytte for personer som har lite tid til styrketrening i hverdagen, men allikevel ønsker fordelene en får av styrketrening.

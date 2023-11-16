@@ -20,41 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
 }
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
 }
-</style>
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -166,13 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05-repmeasures.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">05-repmeasures.html</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analyse av repeterte målinger</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -187,7 +166,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduksjon" id="toc-introduksjon" class="nav-link active" data-scroll-target="#introduksjon"><span class="header-section-number">2.1</span> Introduksjon</a></li>
+  <li><a href="#metode" id="toc-metode" class="nav-link" data-scroll-target="#metode"><span class="header-section-number">2.2</span> Metode</a>
+  <ul class="collapse">
+  <li><a href="#qpcr" id="toc-qpcr" class="nav-link" data-scroll-target="#qpcr"><span class="header-section-number">2.2.1</span> qPCR</a></li>
+  <li><a href="#rna-ekstraksjon" id="toc-rna-ekstraksjon" class="nav-link" data-scroll-target="#rna-ekstraksjon"><span class="header-section-number">2.2.2</span> RNA-ekstraksjon</a></li>
+  <li><a href="#fortynningsrekke" id="toc-fortynningsrekke" class="nav-link" data-scroll-target="#fortynningsrekke"><span class="header-section-number">2.2.3</span> Fortynningsrekke</a></li>
+  </ul></li>
+  <li><a href="#resultat" id="toc-resultat" class="nav-link" data-scroll-target="#resultat"><span class="header-section-number">2.3</span> Resultat</a></li>
+  <li><a href="#diskusjon" id="toc-diskusjon" class="nav-link" data-scroll-target="#diskusjon"><span class="header-section-number">2.4</span> Diskusjon</a></li>
+  <li><a href="#konklusjon" id="toc-konklusjon" class="nav-link" data-scroll-target="#konklusjon"><span class="header-section-number">2.5</span> Konklusjon</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -209,93 +203,1561 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<section id="introduksjon" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="introduksjon"><span class="header-section-number">2.1</span> Introduksjon</h2>
+<p>RNA, ribonucleic acid, finnes i alle celler og har viktige oppgaver når det kommer til både produksjon av proteiner og genregulering <span class="citation" data-cites="kukurba2015">(<a href="references.html#ref-kukurba2015" role="doc-biblioref">Kukurba and Montgomery 2015</a>)</span>. RNA skiller seg fra DNA på flere områder, men en karakteristisk forskjell er RNA-ets utseende og oppbygning. Der DNA består av to tråder i en dobbelheliks, er RNA en tråd med en annen oppbygning. RNA er bygget opp av nukleotider, som videre består av blant annet en nitrogenbase. Disse basene danner basepar AU og GC, og skiller seg fra DNA som danner AT og GC <span class="citation" data-cites="haugen2023">(<a href="references.html#ref-haugen2023" role="doc-biblioref">Haugen 2023</a>)</span>. Gjennom en prosess kalt transkripsjon skapes en RNA-sekvens som er en kopi av et bestemt gen i DNA-et. Denne RNA-sekvensen kalles mRNA, og inneholder oppskriften for å lage et bestemt protein <span class="citation" data-cites="kukurba2015">(<a href="references.html#ref-kukurba2015" role="doc-biblioref">Kukurba and Montgomery 2015</a>)</span>. Det er rekkefølgen på nitrogenbasene som avgjør proteinet og dets funksjon. Siden mRNA gir oss et genuttrykk, kan molekylet gi mye informasjon om proteiner og gener i kroppen vår. Det kan blant annet fortelle oss hvilke fibertyper vi finner i skjelettmuskulatur, basert på deres uttrykk for en av de tre MHC-isoformene. Gjennom ulike prosesser kan man kvantifisere mRNA ved bruk av DNA-baserte metoder, som f.eks qPCR og RNA sequencing.</p>
+</section>
+<section id="metode" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="metode"><span class="header-section-number">2.2</span> Metode</h2>
+<section id="qpcr" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="qpcr"><span class="header-section-number">2.2.1</span> qPCR</h3>
+<p>qPCR er en metode som brukes til å kvantitativt bestemme mengden av et gen i en prøve <span class="citation" data-cites="taylor2019">(<a href="references.html#ref-taylor2019" role="doc-biblioref">Taylor et al. 2019</a>)</span>. For å kunne gjennomføre metoden kreves cDNA (complementary DNA), noe vi kan omdanne RNA til gjennom reversert transkripsjon. Dermed blir cDNA en kopi av RNA-uttrykket, og man får muligheten til å kvantifisere mengden av et bestemt gen. I vårt forsøk var det uttrykket av myosin heavy chain I (MHC I), myosin heavy chain IIa (MHC IIa) og myosin heavychain IIx (MHC IIx) før og etter en to ukers treningsperiode som var aktuell å se på. I qPCR reaksjonen lages det kopier av disse genuttrykkene, og det blir bruk en fluorescens for å finne ut hvor mange sykluser som trengs for å nå terskelen for en eksponentiell økning i fluorescensen. Ut ifra terskelen kan man derfor beregne konsentrasjonen av målgenet <span class="citation" data-cites="livak2001">(<a href="references.html#ref-livak2001" role="doc-biblioref">Livak and Schmittgen 2001</a>)</span>. Antall sykluser som er nødvendig kalles Ct-verdi. Lav Ct-verdi er videre et resultat av høy konsentrasjon av RNA i prøven, og vice versa. For å hente ut disse Ct-verdiene brukte vi Delta-Delta-Ct-metoden, og vi kan dermed analysere endringen i MHC-uttrykket fra prøvene før og etter treningsperioden <span class="citation" data-cites="livak2001">(<a href="references.html#ref-livak2001" role="doc-biblioref">Livak and Schmittgen 2001</a>)</span>.</p>
+<p>Det som trengs for denne protokollen er en real-time PCR-maskin, QuantStudio 5 og en qPCR reaksjonsplate. For å utføre eksperimentet trenger du også ultrarent vann, pipeteringsutstyr og SYBR-green Master mix. For å klargjøre til en qPCR-reaksjon måtte vi sette sammen master-mixen, som inneholder 5 μl av Sybr-green 2X master-mix per reaksjon, 1 μl av primermix for både Forward og Reverse (5 μM hver), og 2 μl H2O. Denne master-mixen er viktig for å forberede reaksjonen. Deretter tilsatte vi 8 μl av master-mixen vi lagde i 30 ulike brønner på qPCR-platen, før vi tilsatte 2 μl av cDNA i hver av de samme brønnene. Det er viktig å merke seg at mengden her kan justeres etter behov, men at 10 μl er et godt utgangspunkt. Det er også en fotnote som påpeker at konsentrasjonen av primere kan kreve ytterligere optimalisering. Dette er en viktig del av protokollen for å sikre nøyaktige og pålitelige resultater. Etter at brønnene er fylt settes platen inn i real-time qPCR maskinen, QuantStudio 5 (Applied Biosystems, i.d.). Her utsettes platen for en rekke temperatursykluser, og maskinen analyserer kontinuerlig data om fluorescensen.</p>
+<p>Det første stedet i temperatursyklus er en økning på 1.99 grader/sek til temperaturen nådde 50 grader, der den holdt varmen konstant i 2 min. Etter de to minuttene økte temperaturen med 1.99 grader/sek til den nådde 95 grader som ble holdt i 2 min. Etter de to minuttene startet det en syklus som ble repetert 40 ganger. Syklusen består av et sekund på 95 grader, før den synger med 1.77 grader/sek til 60 grader. 60 grader ble holdt konstant i 30 sekunder før det ble tatt et bilde av brønnens fluorescens. Etter det økte temperaturen med 1.99 grader/sek til 95 grader, der den ble holdt konstant i 15 sekunder. Syklusen ble deretter repetert. Deretter sank temperaturen med 1.77 grader/sek til 60 grader og ble holdt i 1 minutt. Etter det økte temperaturen med 0.15 grader/sek opp til 95 grader, der den ble holdt konstant i 15 sekunder. Etter denne temperatursyklusen ble resultatene presentert som Ct-verdier, og vi kan lese og analysere konsentrasjonen av de ulike genuttrykkene fra brønnene.</p>
+</section>
+<section id="rna-ekstraksjon" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="rna-ekstraksjon"><span class="header-section-number">2.2.2</span> RNA-ekstraksjon</h3>
+<p>RNA-ekstraksjon er en metode som brukes for å undersøke kvantiteten og sekvensene i RNA. Første steg i metoden er å senke RNA i TRIzol. Dette gjøres for å hemme RNA-spesifikke nedbrytende enzymer og forstyrrende cellulære komponenter. Deretter ble det lagt til kloroform. Blandingen ble deretter sentrifugert (kloroform og sentrifugering blir til løselig RNA). Etter sentrifugeringen ble den vandige fasen fjernet. Denne inneholder RNA. For å utfelle RNA fra løsningen la vi til isopropanol. Etter dette ble blandingen sentrifugert og vi fikk en pellet som inneholdt RNA. For å fjerne kjemikalier fra tidligere steg ble RNA-pelleten vasket med etanol. RNA-pelleten er ustabil og ble oppbevart i fryser for å opprettholde egenskapene dens. Til slutt kunne vi kvantifisere og sjekke kvaliteten på RNA.</p>
+</section>
+<section id="fortynningsrekke" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="fortynningsrekke"><span class="header-section-number">2.2.3</span> Fortynningsrekke</h3>
+<p>Prøvene ble fortynnet sammen med ultrarent vann. Fortynningen ble doblet for hver gang. Det vil si at i “brønn” nummer en var det lik fordeling mellom ultrarent vann og prøve. I “brønn” nummer to var det halvparten så mye prøve som i “brønn” nummer 1. Dette fortsetter i seks rekker (1, 0,5, 0,25, 0,125, 0,0625 og 0,03125). Ut fra qPCR-fortynningsrekken vil vi kunne lese hvor valide resultatene er. Resultatene kan ses som en lineær modell i <a href="#fig-fortynningsrekke">Figure&nbsp;<span>2.1</span></a>.</p>
+</section>
+</section>
+<section id="resultat" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="resultat"><span class="header-section-number">2.3</span> Resultat</h2>
+<p>Resultat fra qPCR er vist i <a href="#tbl-qpcr">Table&nbsp;<span>2.1</span></a>. Fortynningsrekke 1, 1/10 og 1/1000 hadde lite varians mellom Ct1, Ct2 og Ct3 med en variasjonskoeffisient (CV) på 1%. Fortynningsrekke 1/100 viste også lite variasjon mellom Ct1, Ct2 og Ct3 med CV på 2%. I fortynningsrekke 1/10000 ser vi derimot at Ct3 skilte seg betydelig fra Ct1 og Ct2 (34,927 vs 30,0 og 30,2). Dette resulterte i en relativt høy CV på 9%. Resultatene fra <a href="#tbl-qpcr">Table&nbsp;<span>2.1</span></a> ga en primereffektivitet på 86,54% og R2 på 0,91.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Opprett data frame med gitt data</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Time =</span> <span class="fu">c</span>(<span class="st">"W0"</span>, <span class="st">"W2"</span>),</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">MHC_I_mean =</span> <span class="fu">c</span>(<span class="fl">18.25</span>, <span class="fl">20.61</span>),</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">MHC_I_std =</span> <span class="fu">c</span>(<span class="fl">1.07</span>, <span class="fl">4.85</span>),</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">MHC_I_cv =</span> <span class="fu">c</span>(<span class="fl">5.8</span>, <span class="fl">23.52</span>),</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">MHC_IIa_mean =</span> <span class="fu">c</span>(<span class="fl">16.58</span>, <span class="fl">17.61</span>),</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">MHC_IIa_std =</span> <span class="fu">c</span>(<span class="fl">1.95</span>, <span class="fl">0.69</span>),</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">MHC_IIa_cv =</span> <span class="fu">c</span>(<span class="fl">11.77</span>, <span class="fl">3.93</span>),</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">MHC_IIx_mean =</span> <span class="fu">c</span>(<span class="fl">17.85</span>, <span class="fl">22.21</span>),</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">MHC_IIx_std =</span> <span class="fu">c</span>(<span class="fl">0.45</span>, <span class="fl">0.72</span>),</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">MHC_IIx_cv =</span> <span class="fu">c</span>(<span class="fl">2.51</span>, <span class="fl">3.26</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Vis data frame</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Time MHC_I_mean MHC_I_std MHC_I_cv MHC_IIa_mean MHC_IIa_std MHC_IIa_cv
-1   W0      18.25      1.07     5.80        16.58        1.95      11.77
-2   W2      20.61      4.85    23.52        17.61        0.69       3.93
-  MHC_IIx_mean MHC_IIx_std MHC_IIx_cv
-1        17.85        0.45       2.51
-2        22.21        0.72       3.26</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hvis du vil vise dataene i en tabell</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 4%">
-<col style="width: 10%">
-<col style="width: 9%">
-<col style="width: 8%">
-<col style="width: 12%">
-<col style="width: 11%">
-<col style="width: 10%">
-<col style="width: 12%">
-<col style="width: 11%">
-<col style="width: 10%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Time</th>
-<th style="text-align: right;">MHC_I_mean</th>
-<th style="text-align: right;">MHC_I_std</th>
-<th style="text-align: right;">MHC_I_cv</th>
-<th style="text-align: right;">MHC_IIa_mean</th>
-<th style="text-align: right;">MHC_IIa_std</th>
-<th style="text-align: right;">MHC_IIa_cv</th>
-<th style="text-align: right;">MHC_IIx_mean</th>
-<th style="text-align: right;">MHC_IIx_std</th>
-<th style="text-align: right;">MHC_IIx_cv</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">W0</td>
-<td style="text-align: right;">18.25</td>
-<td style="text-align: right;">1.07</td>
-<td style="text-align: right;">5.80</td>
-<td style="text-align: right;">16.58</td>
-<td style="text-align: right;">1.95</td>
-<td style="text-align: right;">11.77</td>
-<td style="text-align: right;">17.85</td>
-<td style="text-align: right;">0.45</td>
-<td style="text-align: right;">2.51</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">W2</td>
-<td style="text-align: right;">20.61</td>
-<td style="text-align: right;">4.85</td>
-<td style="text-align: right;">23.52</td>
-<td style="text-align: right;">17.61</td>
-<td style="text-align: right;">0.69</td>
-<td style="text-align: right;">3.93</td>
-<td style="text-align: right;">22.21</td>
-<td style="text-align: right;">0.72</td>
-<td style="text-align: right;">3.26</td>
-</tr>
-</tbody>
+<div id="tbl-qpcr" class="anchored">
+
+<div id="osilfgnmjc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#osilfgnmjc table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#osilfgnmjc thead, #osilfgnmjc tbody, #osilfgnmjc tfoot, #osilfgnmjc tr, #osilfgnmjc td, #osilfgnmjc th {
+  border-style: none;
+}
+
+#osilfgnmjc p {
+  margin: 0;
+  padding: 0;
+}
+
+#osilfgnmjc .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#osilfgnmjc .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#osilfgnmjc .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#osilfgnmjc .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#osilfgnmjc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#osilfgnmjc .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#osilfgnmjc .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#osilfgnmjc .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#osilfgnmjc .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#osilfgnmjc .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#osilfgnmjc .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#osilfgnmjc .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#osilfgnmjc .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#osilfgnmjc .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#osilfgnmjc .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#osilfgnmjc .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#osilfgnmjc .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#osilfgnmjc .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#osilfgnmjc .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#osilfgnmjc .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#osilfgnmjc .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#osilfgnmjc .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#osilfgnmjc .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#osilfgnmjc .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#osilfgnmjc .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#osilfgnmjc .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#osilfgnmjc .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#osilfgnmjc .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#osilfgnmjc .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#osilfgnmjc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#osilfgnmjc .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#osilfgnmjc .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#osilfgnmjc .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#osilfgnmjc .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#osilfgnmjc .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#osilfgnmjc .gt_left {
+  text-align: left;
+}
+
+#osilfgnmjc .gt_center {
+  text-align: center;
+}
+
+#osilfgnmjc .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#osilfgnmjc .gt_font_normal {
+  font-weight: normal;
+}
+
+#osilfgnmjc .gt_font_bold {
+  font-weight: bold;
+}
+
+#osilfgnmjc .gt_font_italic {
+  font-style: italic;
+}
+
+#osilfgnmjc .gt_super {
+  font-size: 65%;
+}
+
+#osilfgnmjc .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#osilfgnmjc .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#osilfgnmjc .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#osilfgnmjc .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#osilfgnmjc .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#osilfgnmjc .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#osilfgnmjc .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><caption>Table&nbsp;2.1:  <p>Resultat fra qPCR</p> </caption>
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Fortynningsrekke">Fortynningsrekke</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Ct1">Ct1</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Ct2">Ct2</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Ct3">Ct3</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Ct_gj_snitt">Ct_gj_snitt</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Sample_quant">Sample_quant</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Log_sample_quant">Log_sample_quant</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="SD">SD</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="CV_prosent">CV_prosent</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Fortynningsrekke" class="gt_row gt_right">1</td>
+<td headers="Ct1" class="gt_row gt_right">26.09</td>
+<td headers="Ct2" class="gt_row gt_right">25.68</td>
+<td headers="Ct3" class="gt_row gt_right">25.86</td>
+<td headers="Ct_gj_snitt" class="gt_row gt_right">25.88</td>
+<td headers="Sample_quant" class="gt_row gt_right">1.00</td>
+<td headers="Log_sample_quant" class="gt_row gt_right">0.00</td>
+<td headers="SD" class="gt_row gt_right">0.21</td>
+<td headers="CV_prosent" class="gt_row gt_right">1.00</td></tr>
+    <tr><td headers="Fortynningsrekke" class="gt_row gt_right">1/10</td>
+<td headers="Ct1" class="gt_row gt_right">27.16</td>
+<td headers="Ct2" class="gt_row gt_right">27.76</td>
+<td headers="Ct3" class="gt_row gt_right">27.27</td>
+<td headers="Ct_gj_snitt" class="gt_row gt_right">27.40</td>
+<td headers="Sample_quant" class="gt_row gt_right">0.50</td>
+<td headers="Log_sample_quant" class="gt_row gt_right">−0.30</td>
+<td headers="SD" class="gt_row gt_right">0.32</td>
+<td headers="CV_prosent" class="gt_row gt_right">1.00</td></tr>
+    <tr><td headers="Fortynningsrekke" class="gt_row gt_right">1/100</td>
+<td headers="Ct1" class="gt_row gt_right">28.42</td>
+<td headers="Ct2" class="gt_row gt_right">28.95</td>
+<td headers="Ct3" class="gt_row gt_right">27.64</td>
+<td headers="Ct_gj_snitt" class="gt_row gt_right">28.34</td>
+<td headers="Sample_quant" class="gt_row gt_right">0.25</td>
+<td headers="Log_sample_quant" class="gt_row gt_right">−0.60</td>
+<td headers="SD" class="gt_row gt_right">0.65</td>
+<td headers="CV_prosent" class="gt_row gt_right">2.00</td></tr>
+    <tr><td headers="Fortynningsrekke" class="gt_row gt_right">1/1000</td>
+<td headers="Ct1" class="gt_row gt_right">28.85</td>
+<td headers="Ct2" class="gt_row gt_right">29.36</td>
+<td headers="Ct3" class="gt_row gt_right">29.16</td>
+<td headers="Ct_gj_snitt" class="gt_row gt_right">29.13</td>
+<td headers="Sample_quant" class="gt_row gt_right">0.12</td>
+<td headers="Log_sample_quant" class="gt_row gt_right">−0.90</td>
+<td headers="SD" class="gt_row gt_right">0.25</td>
+<td headers="CV_prosent" class="gt_row gt_right">1.00</td></tr>
+    <tr><td headers="Fortynningsrekke" class="gt_row gt_right">1/10000</td>
+<td headers="Ct1" class="gt_row gt_right">30.00</td>
+<td headers="Ct2" class="gt_row gt_right">30.22</td>
+<td headers="Ct3" class="gt_row gt_right">34.92</td>
+<td headers="Ct_gj_snitt" class="gt_row gt_right">31.71</td>
+<td headers="Sample_quant" class="gt_row gt_right">0.06</td>
+<td headers="Log_sample_quant" class="gt_row gt_right">−1.20</td>
+<td headers="SD" class="gt_row gt_right">2.78</td>
+<td headers="CV_prosent" class="gt_row gt_right">9.00</td></tr>
+    <tr><td headers="Fortynningsrekke" class="gt_row gt_right">1/100000</td>
+<td headers="Ct1" class="gt_row gt_right">30.87</td>
+<td headers="Ct2" class="gt_row gt_right">30.68</td>
+<td headers="Ct3" class="gt_row gt_right">31.19</td>
+<td headers="Ct_gj_snitt" class="gt_row gt_right">30.91</td>
+<td headers="Sample_quant" class="gt_row gt_right">0.03</td>
+<td headers="Log_sample_quant" class="gt_row gt_right">−1.50</td>
+<td headers="SD" class="gt_row gt_right">0.25</td>
+<td headers="CV_prosent" class="gt_row gt_right">1.00</td></tr>
+  </tbody>
+  
+  
 </table>
 </div>
 </div>
+</div>
+</div>
+<p>Prosentvis andel MHC I, -IIa og -IIx før og etter de fem treningsøktene er vist i <a href="#tbl-genuttrykk">Table&nbsp;<span>2.2</span></a>. Genuttrykket for MHC I gikk opp fra 18,16% før treningsintervensjonen til 45,54% etter treningsintervensjonen, og fra 57,84% til 85,77% for MHC IIa. Genuttrykket for MHC IIx gikk derimot ned, fra 24,01% til 3,53%.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-genuttrykk" class="anchored">
+
+<div id="vypztauqtf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vypztauqtf table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#vypztauqtf thead, #vypztauqtf tbody, #vypztauqtf tfoot, #vypztauqtf tr, #vypztauqtf td, #vypztauqtf th {
+  border-style: none;
+}
+
+#vypztauqtf p {
+  margin: 0;
+  padding: 0;
+}
+
+#vypztauqtf .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#vypztauqtf .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#vypztauqtf .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#vypztauqtf .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#vypztauqtf .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vypztauqtf .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vypztauqtf .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vypztauqtf .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#vypztauqtf .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#vypztauqtf .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#vypztauqtf .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#vypztauqtf .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#vypztauqtf .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#vypztauqtf .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#vypztauqtf .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#vypztauqtf .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#vypztauqtf .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#vypztauqtf .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#vypztauqtf .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vypztauqtf .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#vypztauqtf .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#vypztauqtf .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#vypztauqtf .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vypztauqtf .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#vypztauqtf .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#vypztauqtf .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vypztauqtf .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vypztauqtf .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#vypztauqtf .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vypztauqtf .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#vypztauqtf .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vypztauqtf .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vypztauqtf .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vypztauqtf .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vypztauqtf .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vypztauqtf .gt_left {
+  text-align: left;
+}
+
+#vypztauqtf .gt_center {
+  text-align: center;
+}
+
+#vypztauqtf .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#vypztauqtf .gt_font_normal {
+  font-weight: normal;
+}
+
+#vypztauqtf .gt_font_bold {
+  font-weight: bold;
+}
+
+#vypztauqtf .gt_font_italic {
+  font-style: italic;
+}
+
+#vypztauqtf .gt_super {
+  font-size: 65%;
+}
+
+#vypztauqtf .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#vypztauqtf .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#vypztauqtf .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#vypztauqtf .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#vypztauqtf .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#vypztauqtf .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#vypztauqtf .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><caption>Table&nbsp;2.2:  <p>Prosentvis andel genuttrykk for MHC I, IIa og IIx før og etter fem
+treningsøkter</p> </caption>
+  <thead>
+    
+    <tr class="gt_col_headings gt_spanner_row">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="Tidspunkt">Tidspunkt</th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="3" scope="colgroup" id="Genuttrykk">
+        <span class="gt_column_spanner">Genuttrykk</span>
+      </th>
+    </tr>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="MHC_I">MHC_I</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="MHC_IIa">MHC_IIa</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="MHC_IIx">MHC_IIx</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Tidspunkt" class="gt_row gt_left">W0</td>
+<td headers="MHC_I" class="gt_row gt_right">18.16</td>
+<td headers="MHC_IIa" class="gt_row gt_right">57.84</td>
+<td headers="MHC_IIx" class="gt_row gt_right">24.01</td></tr>
+    <tr><td headers="Tidspunkt" class="gt_row gt_left">W2</td>
+<td headers="MHC_I" class="gt_row gt_right">45.54</td>
+<td headers="MHC_IIa" class="gt_row gt_right">85.77</td>
+<td headers="MHC_IIx" class="gt_row gt_right">3.53</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+</div>
+<p>Det ble regnet ut CV for triplikatene MHC I, IIa og IIx for W0 og W2. <a href="#tbl-mhc-cv">Table&nbsp;<span>2.3</span></a> viser lav varians i målingene, med unntak av MHC 1 for W2 som hadde en CV på 23,52.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-mhc-cv" class="anchored">
+
+<div id="ssbkwvzzho" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ssbkwvzzho table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ssbkwvzzho thead, #ssbkwvzzho tbody, #ssbkwvzzho tfoot, #ssbkwvzzho tr, #ssbkwvzzho td, #ssbkwvzzho th {
+  border-style: none;
+}
+
+#ssbkwvzzho p {
+  margin: 0;
+  padding: 0;
+}
+
+#ssbkwvzzho .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ssbkwvzzho .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ssbkwvzzho .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ssbkwvzzho .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ssbkwvzzho .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ssbkwvzzho .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ssbkwvzzho .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ssbkwvzzho .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ssbkwvzzho .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ssbkwvzzho .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ssbkwvzzho .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ssbkwvzzho .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ssbkwvzzho .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#ssbkwvzzho .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ssbkwvzzho .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ssbkwvzzho .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ssbkwvzzho .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ssbkwvzzho .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ssbkwvzzho .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ssbkwvzzho .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ssbkwvzzho .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ssbkwvzzho .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#ssbkwvzzho .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ssbkwvzzho .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ssbkwvzzho .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ssbkwvzzho .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ssbkwvzzho .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ssbkwvzzho .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ssbkwvzzho .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ssbkwvzzho .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ssbkwvzzho .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ssbkwvzzho .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ssbkwvzzho .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ssbkwvzzho .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ssbkwvzzho .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ssbkwvzzho .gt_left {
+  text-align: left;
+}
+
+#ssbkwvzzho .gt_center {
+  text-align: center;
+}
+
+#ssbkwvzzho .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ssbkwvzzho .gt_font_normal {
+  font-weight: normal;
+}
+
+#ssbkwvzzho .gt_font_bold {
+  font-weight: bold;
+}
+
+#ssbkwvzzho .gt_font_italic {
+  font-style: italic;
+}
+
+#ssbkwvzzho .gt_super {
+  font-size: 65%;
+}
+
+#ssbkwvzzho .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#ssbkwvzzho .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ssbkwvzzho .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ssbkwvzzho .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ssbkwvzzho .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ssbkwvzzho .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ssbkwvzzho .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><caption>Table&nbsp;2.3:  <p>Gjennomsnittsverdier og CV for MHC I, IIa og IIx ved W0 og W2</p> </caption>
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Time">Time</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="MHC_I_mean">MHC_I_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="MHC_IIa_mean">MHC_IIa_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="MHC_IIx_mean">MHC_IIx_mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="MHC_I_cv">MHC_I_cv</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="MHC_IIa_cv">MHC_IIa_cv</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="MHC_IIx_cv">MHC_IIx_cv</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Time" class="gt_row gt_left">W0</td>
+<td headers="MHC_I_mean" class="gt_row gt_right">18.25</td>
+<td headers="MHC_IIa_mean" class="gt_row gt_right">16.58</td>
+<td headers="MHC_IIx_mean" class="gt_row gt_right">17.85</td>
+<td headers="MHC_I_cv" class="gt_row gt_right">5.80</td>
+<td headers="MHC_IIa_cv" class="gt_row gt_right">11.77</td>
+<td headers="MHC_IIx_cv" class="gt_row gt_right">2.51</td></tr>
+    <tr><td headers="Time" class="gt_row gt_left">W2</td>
+<td headers="MHC_I_mean" class="gt_row gt_right">20.61</td>
+<td headers="MHC_IIa_mean" class="gt_row gt_right">17.61</td>
+<td headers="MHC_IIx_mean" class="gt_row gt_right">22.21</td>
+<td headers="MHC_I_cv" class="gt_row gt_right">23.52</td>
+<td headers="MHC_IIa_cv" class="gt_row gt_right">3.93</td>
+<td headers="MHC_IIx_cv" class="gt_row gt_right">3.26</td></tr>
+  </tbody>
+  
+  <tfoot class="gt_footnotes">
+    <tr>
+      <td class="gt_footnote" colspan="7"> Mean = gjennomsnitt, CV = variasjonskoeffesient</td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-fortynningsrekke" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="02-labrap_files/figure-html/fig-fortynningsrekke-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.1: Lineær fremstilling av fortynningsrekken</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="diskusjon" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="diskusjon"><span class="header-section-number">2.4</span> Diskusjon</h2>
+<p>Resultatene fra qPCR’en viste relativt lav CV for de fleste fortynningrekker. Unntaket var fortynningsrekke 1/1000, med en CV på 9%. Dette skyldes at verdien ved Ct3 var betydelig høyrere enn verdiene for Ct1 og Ct2. Denne utliggeren kan for eksempel skyldes feil eller unøyaktighet ved pippettering, eller kontaminering av prøven. Outlieren førte i sin tur til en noe lav R2 på 0,91, sammenlignet med gjeldende anbefalinger på &gt;0,98 <span class="citation" data-cites="taylor2019">(<a href="references.html#ref-taylor2019" role="doc-biblioref">Taylor et al. 2019</a>)</span>. Utliggeren kan også ha påvirket primereffektiviteten vår på 86,54%, noe som også er lavere enn det aksepterte intervallet på 90-110% <span class="citation" data-cites="hays2022">(<a href="references.html#ref-hays2022" role="doc-biblioref">Hays et al. 2022</a>)</span>. Det kan tenkes at dersom denne utliggeren lå nærmere de to andre verdiene i fortynningrekken, ville primereffektiviteten og R2 havnet innenfor anbefalingene. Dersom vi fjerner denne utliggeren, får vi en mye lavere CV på 1%. Samtidig endres R2 til 0,99 og primereffektivitet til 103,71, hvorav begge desse verdiene er innenfor deres respektive anbefalinger.</p>
+<p>I tabell 2 kan vi se en økning i MHCIIA, hvor prosentandelen gikk fra 57,84% til 85,77%. Samtidig ser vi en reduksjon av MHCIIX, som gikk fra en prosentandel på 24,01% til 3,53%. Dette er i tråd med observasjonene til <span class="citation" data-cites="andersen2000">Andersen and Aagaard (<a href="references.html#ref-andersen2000" role="doc-biblioref">2000</a>)</span>, som undersøkte forandringer i muskelfibertype etter tre måneder med tung styrketrening. Vi kan også observere en stor økning i MHCI, som gikk fra en prosentandel på 18,16% til 45,54%. <span class="citation" data-cites="widrick2002">Widrick et al. (<a href="references.html#ref-widrick2002" role="doc-biblioref">2002</a>)</span> fant hverken økning eller redusering av MHC I etter styrketrening i sin 12-ukers studie, så det er dermed usikkert hva grunnen til denne store økningen er. Grunnet disse store forskjellene i muskelfibersammensetning etter kun fem treningsøkter kan man anta at testpersonen er utrent, og at en trent person ville hatt betraktelig mindre endringer i sammensetning.</p>
+<p>Den store økningen i MHC I uttrykk fra W0 til W2 kan også skyldes feil i pipettering. MHC I for W2 hadde en CV på 23,52 som viser til store variasjoner mellom de tre målingene. Det er ikke notert avvik knyttet til pipettering i rapporten, noe som gjør det vanskelig å forklare eksakt hva som er årsaken til variasjonen.</p>
+</section>
+<section id="konklusjon" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="konklusjon"><span class="header-section-number">2.5</span> Konklusjon</h2>
+<p>Det ser ut som at en to ukers treningsperiode øker genutrykket for MHC IIa og reduserer uttrykket for MHC IIx. Dette er i tråd med tidligere forskning <span class="citation" data-cites="andersen2000">(<a href="references.html#ref-andersen2000" role="doc-biblioref">Andersen and Aagaard 2000</a>)</span>. Det ser også ut som at uttrykket for MHC I øker etter en treningsperiode, men dette er noe usikkert ettersom denne økningen kan ha vært et resultat av målefeil. Det er også viktig å tolke resultatene med forsiktighet ettersom det kun er undersøkt en person.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-andersen2000" class="csl-entry" role="listitem">
+Andersen, and Aagaard. 2000. <span>“Myosin Heavy Chain IIX Overshoot in Human Skeletal Muscle - Andersen - 2000 - Muscle &amp; Nerve - Wiley Online Library.”</span> <a href="https://onlinelibrary.wiley.com/doi/10.1002/1097-4598(200007)23:7%3C1095::AID-MUS13%3E3.0.CO;2-O">https://onlinelibrary.wiley.com/doi/10.1002/1097-4598(200007)23:7%3C1095::AID-MUS13%3E3.0.CO;2-O</a>.
+</div>
+<div id="ref-haugen2023" class="csl-entry" role="listitem">
+Haugen, Marianne Nilsen. 2023. <span>“baseparing.”</span> <a href="https://sml.snl.no/baseparing">https://sml.snl.no/baseparing</a>.
+</div>
+<div id="ref-hays2022" class="csl-entry" role="listitem">
+Hays, Amanda, Rafiq Islam, Katie Matys, and Dave Williams. 2022. <span>“Best Practices in qPCR and dPCR Validation in Regulated Bioanalytical Laboratories.”</span> <em>The AAPS journal</em> 24 (2): 36. <a href="https://doi.org/10.1208/s12248-022-00686-1">https://doi.org/10.1208/s12248-022-00686-1</a>.
+</div>
+<div id="ref-kukurba2015" class="csl-entry" role="listitem">
+Kukurba, Kimberly R., and Stephen B. Montgomery. 2015. <span>“RNA Sequencing and Analysis.”</span> <em>Cold Spring Harbor Protocols</em> 2015 (11): 951–69. <a href="https://doi.org/10.1101/pdb.top084970">https://doi.org/10.1101/pdb.top084970</a>.
+</div>
+<div id="ref-livak2001" class="csl-entry" role="listitem">
+Livak, Kenneth J., and Thomas D. Schmittgen. 2001. <span>“Analysis of Relative Gene Expression Data Using Real-Time Quantitative PCR and the 2<span>-</span>ΔΔCT Method.”</span> <em>Methods</em> 25 (4): 402–8. <a href="https://doi.org/10.1006/meth.2001.1262">https://doi.org/10.1006/meth.2001.1262</a>.
+</div>
+<div id="ref-taylor2019" class="csl-entry" role="listitem">
+Taylor, Sean C., Katia Nadeau, Meysam Abbasi, Claude Lachance, Marie Nguyen, and Joshua Fenrich. 2019. <span>“The Ultimate qPCR Experiment: Producing Publication Quality, Reproducible Data the First Time.”</span> <em>Trends in Biotechnology</em> 37 (7): 761–74. <a href="https://doi.org/10.1016/j.tibtech.2018.12.002">https://doi.org/10.1016/j.tibtech.2018.12.002</a>.
+</div>
+<div id="ref-widrick2002" class="csl-entry" role="listitem">
+Widrick, Jeffrey J., Julian E. Stelzer, Todd C. Shoepe, and Dena P. Garner. 2002. <span>“Functional properties of human muscle fibers after short-term resistance exercise training.”</span> <em>American Journal of Physiology. Regulatory, Integrative and Comparative Physiology</em> 283 (2): R408–416. <a href="https://doi.org/10.1152/ajpregu.00120.2002">https://doi.org/10.1152/ajpregu.00120.2002</a>.
+</div>
+</div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
